@@ -1,0 +1,55 @@
+# Configuración de la aplicación Spring Boot
+spring:
+  application:
+    name: cleanbackend
+  
+  # Configuración de datasource para H2
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+    
+  # Configuración de JPA
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  
+  # Configuración de H2 Console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+
+# Configuración de logging
+logging:
+  level:
+    root: INFO
+    com.pragma.cleanbackend: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.web: INFO
+    org.springframework.boot: INFO
+    
+# Configuración del servidor
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    
+# Configuración de Spring Actuator (opcional para monitoreo)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
